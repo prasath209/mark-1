@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ultra Liquid Movie Site</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI}
+body{
+  background:radial-gradient(circle at top,#0f2027,#000);
+  color:#fff;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding-top:80px;
+}
+
+/* Watching Eye */
+.eye-box{
+  position:fixed;
+  top:10px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:999;
+}
+.eye{
+  width:90px;height:45px;
+  background:#fff;
+  border-radius:0 0 60px 60px;
+  position:relative;
+}
+.pupil{
+  width:18px;height:18px;
+  background:#000;
+  border-radius:50%;
+  position:absolute;
+  top:14px;left:36px;
+  transition:.15s;
+}
+
+/* Glass Card */
+.card{
+  width:92%;
+  max-width:430px;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(18px);
+  border-radius:25px;
+  padding:25px;
+  box-shadow:0 0 50px rgba(0,255,255,.25);
+  margin-bottom:20px;
+}
+
+h2{text-align:center;margin-bottom:10px}
+
+input{
+  width:100%;
+  padding:14px;
+  margin:8px 0;
+  border:none;
+  border-radius:20px;
+  outline:none;
+}
+
+/* Ultra Liquid Button */
+.btn{
+  margin-top:10px;
+  padding:15px;
+  width:100%;
+  border:none;
+  border-radius:999px;
+  background:linear-gradient(120deg,#00f2fe,#4facfe);
+  font-weight:bold;
+  cursor:pointer;
+  transition:.35s;
+}
+.btn:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 30px cyan;
+}
+
+.hidden{display:none}
+
+/* Movie Card */
+.movie{
+  background:rgba(0,0,0,.45);
+  padding:15px;
+  border-radius:22px;
+  margin-top:12px;
+}
+.movie-name{
+  font-size:18px;
+  font-weight:bold;
+}
+
+.play-btn{
+  margin-top:10px;
+  padding:14px;
+  border-radius:28px;
+  background:linear-gradient(135deg,#ff00ff,#00ffff);
+  cursor:pointer;
+  font-weight:bold;
+  text-align:center;
+  transition:.4s;
+}
+.play-btn:hover{
+  transform:scale(1.15);
+  box-shadow:0 0 35px magenta;
+}
+
+.delete{
+  margin-top:8px;
+  background:#ff0033;
+  color:#fff;
+  padding:8px;
+  border-radius:16px;
+  cursor:pointer;
+  display:none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Watching Eye -->
+<div class="eye-box">
+  <div class="eye">
+    <div class="pupil" id="pupil"></div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div class="card" id="loginBox">
+  <h2>Admin Login</h2>
+  <input id="user" placeholder="Username">
+  <input id="pass" type="password" placeholder="Password">
+  <button class="btn" onclick="login()">LOGIN</button>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="card hidden" id="adminBox">
+  <h2>Add Movie</h2>
+  <input id="mname" placeholder="Movie Name">
+  <input id="mlink" placeholder="Drive / Website Link">
+  <button class="btn" onclick="addMovie()">ADD MOVIE</button>
+  <button class="btn" onclick="logout()">LOGOUT</button>
+</div>
+
+<!-- MOVIES (ALWAYS VISIBLE) -->
+<div class="card">
+  <h2>Movies</h2>
+  <div id="movies"></div>
+</div>
+
+<script>
+const ADMIN_USER="admin";
+const ADMIN_PASS="victor";
+let isAdmin=false;
+
+/* Login */
+function login(){
+  if(user.value===ADMIN_USER && pass.value===ADMIN_PASS){
+    isAdmin=true;
+    loginBox.classList.add("hidden");
+    adminBox.classList.remove("hidden");
+    loadMovies();
+  }else alert("Wrong login");
+}
+
+/* Logout */
+function logout(){
+  isAdmin=false;
+  adminBox.classList.add("hidden");
+  loginBox.classList.remove("hidden");
+  document.querySelectorAll(".delete").forEach(d=>d.style.display="none");
+}
+
+/* Movies */
+function addMovie(){
+  if(!mname.value||!mlink.value) return alert("Fill all fields");
+  let list=JSON.parse(localStorage.getItem("movies")||"[]");
+  list.push({name:mname.value,link:mlink.value});
+  localStorage.setItem("movies",JSON.stringify(list));
+  mname.value="";mlink.value="";
+  loadMovies();
+}
+
+function loadMovies(){
+  movies.innerHTML="";
+  let list=JSON.parse(localStorage.getItem("movies")||"[]");
+  list.forEach((m,i)=>{
+    let div=document.createElement("div");
+    div.className="movie";
+    div.innerHTML=`
+      <div class="movie-name">${m.name}</div>
+      <div class="play-btn" onclick="openMovie('${m.link}')">
+        ▶ WATCH NOW
+      </div>
+      <div class="delete" onclick="delMovie(${i})">DELETE</div>
+    `;
+    if(isAdmin) div.querySelector(".delete").style.display="block";
+    movies.appendChild(div);
+  });
+}
+
+function delMovie(i){
+  let list=JSON.parse(localStorage.getItem("movies"));
+  list.splice(i,1);
+  localStorage.setItem("movies",JSON.stringify(list));
+  loadMovies();
+}
+
+/* OPEN LINK DIRECT */
+function openMovie(link){
+  window.open(link,"_blank"); // new tab
+}
+
+/* Eye follows mouse */
+document.addEventListener("mousemove",e=>{
+  let x=(e.clientX/window.innerWidth-.5)*25;
+  let y=(e.clientY/window.innerHeight-.5)*10;
+  pupil.style.transform=`translate(${x}px,${y}px)`;
+});
+
+/* Load movies for everyone */
+loadMovies();
+</script>
+
+</body>
+</html>
