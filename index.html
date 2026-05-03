@@ -71,30 +71,60 @@ body{
   margin-bottom:20px;
 }
 
-/* LIQUID BUTTON */
+/* LIQUID BUTTON – ULTRA INTERACTIVE */
 .liquid-btn{
-  height:140px;border-radius:26px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:20px;font-weight:900;
-  cursor:pointer;position:relative;overflow:hidden;
+  height:140px;
+  border-radius:26px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  font-weight:900;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  transition:transform .15s ease, box-shadow .15s ease;
 }
+
 .liquid-btn::before{
-  content:"";position:absolute;width:220%;height:220%;
+  content:"";
+  position:absolute;
+  width:220%;
+  height:220%;
   background:
     radial-gradient(circle at 25% 25%,#00ffff,transparent 45%),
     radial-gradient(circle at 75% 75%,#ff00ff,transparent 45%),
     linear-gradient(135deg,#00ffff,#ff00ff);
-  filter:blur(26px);animation:flow 10s linear infinite;
+  filter:blur(26px);
+  animation:flow 10s linear infinite;
   z-index:-2;
+  transition:all .2s ease;
 }
+
 .liquid-btn::after{
-  content:"";position:absolute;inset:0;
+  content:"";
+  position:absolute;
+  inset:0;
   background:rgba(255,255,255,.14);
-  backdrop-filter:blur(25px);z-index:-1;
+  backdrop-filter:blur(25px);
+  z-index:-1;
 }
+
+/* default liquid */
 @keyframes flow{
   0%{transform:translate(-30%,-30%) rotate(0)}
   100%{transform:translate(-30%,-30%) rotate(360deg)}
+}
+
+/* 🎯 PRESS (touch / click) */
+.liquid-btn:active{
+  transform:scale(.90) translateY(4px);
+  box-shadow:0 0 90px cyan inset;
+}
+
+.liquid-btn:active::before{
+  animation-duration:1.8s;
+  filter:blur(18px);
 }
 
 /* CATEGORY HEADER */
@@ -155,7 +185,6 @@ body{
     <input id="search" placeholder="Search movies">
   </div>
 
-  <!-- CATEGORY GRID -->
   <div id="categoryGrid" class="grid">
     <div class="liquid-btn" onclick="openCategory('Hollywood')">Hollywood</div>
     <div class="liquid-btn" onclick="openCategory('Bollywood')">Bollywood</div>
@@ -163,11 +192,10 @@ body{
     <div class="liquid-btn" onclick="openCategory('Cartoon')">Cartoon</div>
   </div>
 
-  <!-- SEARCH RESULTS -->
   <div id="homeMovies" class="movies"></div>
 </div>
 
-<!-- CATEGORY PAGE -->
+<!-- CATEGORY -->
 <div id="category" class="screen hidden">
   <div class="category-header">
     <div class="back-btn" onclick="goBack()">← Back</div>
@@ -188,7 +216,7 @@ const moviesData=[
  {name:"Anaconda-3",cat:"Hollywood",link:"https://drive.google.com/file/d/1vd2zVmRdfii6bPiuRKDH-wwdYrkLEbF-/view"}
 ];
 
-/* SEARCH – hide categories */
+/* SEARCH */
 search.addEventListener("input",()=>{
   const q=search.value.toLowerCase();
   homeMovies.innerHTML="";
@@ -198,33 +226,27 @@ search.addEventListener("input",()=>{
   }
   categoryGrid.style.display="none";
   moviesData.filter(m=>m.name.toLowerCase().includes(q))
-    .forEach(renderHomeMovie);
+    .forEach(m=>{
+      homeMovies.innerHTML+=`
+        <div class="movie">
+          <div>${m.name}</div>
+          <div class="play" onclick="window.open('${m.link}','_blank')">▶ WATCH</div>
+        </div>`;
+    });
 });
 
-function renderHomeMovie(m){
-  homeMovies.innerHTML+=`
-    <div class="movie">
-      <div>${m.name}</div>
-      <div class="play" onclick="window.open('${m.link}','_blank')">▶ WATCH</div>
-    </div>`;
-}
-
-/* CATEGORY */
 function openCategory(cat){
   home.classList.add("hidden");
   category.classList.remove("hidden");
   catTitle.textContent=cat+" Collection";
   moviesBox.innerHTML="";
-  moviesData.filter(m=>m.cat===cat)
-    .forEach(renderCategoryMovie);
-}
-
-function renderCategoryMovie(m){
-  moviesBox.innerHTML+=`
-    <div class="movie">
-      <div>${m.name}</div>
-      <div class="play" onclick="window.open('${m.link}','_blank')">▶ WATCH</div>
-    </div>`;
+  moviesData.filter(m=>m.cat===cat).forEach(m=>{
+    moviesBox.innerHTML+=`
+      <div class="movie">
+        <div>${m.name}</div>
+        <div class="play" onclick="window.open('${m.link}','_blank')">▶ WATCH</div>
+      </div>`;
+  });
 }
 
 function goBack(){
