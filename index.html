@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prasath Movie Show</title>
+<title>Prasath's Movie Show</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
@@ -42,14 +42,14 @@ body{
   gap:12px;
 }
 
-/* Profile (visible to all users) */
+/* ===== PROFILE (BIGGER) ===== */
 .profile{
-  width:50px;
-  height:50px;
+  width:70px;          /* was 50px */
+  height:70px;         /* was 50px */
   border-radius:50%;
   background:rgba(255,255,255,.18);
   backdrop-filter:blur(16px);
-  box-shadow:0 0 25px cyan,inset 0 0 12px #fff4;
+  box-shadow:0 0 30px cyan,inset 0 0 15px #fff4;
   overflow:hidden;
 }
 .profile img{
@@ -58,17 +58,17 @@ body{
   object-fit:cover;
 }
 
-/* ===== SEARCH BOX ===== */
+/* ===== SEARCH BOX (SMALLER WIDTH) ===== */
 .search-box input{
-  width:220px;
-  padding:15px 24px;
+  width:180px;         /* was 220px */
+  padding:14px 22px;
   border:none;
   outline:none;
   border-radius:999px;
   background:rgba(255,255,255,.15);
   backdrop-filter:blur(20px);
   color:#fff;
-  font-size:18px;
+  font-size:17px;
   text-align:center;
   box-shadow:
     0 0 25px rgba(0,255,255,.45),
@@ -76,7 +76,7 @@ body{
   transition:.4s;
 }
 .search-box input:focus{
-  width:280px;
+  width:240px;         /* was 280px */
   box-shadow:0 0 40px cyan;
 }
 
@@ -165,10 +165,7 @@ h2{text-align:center;margin-bottom:15px;font-size:28px}
   border-radius:25px;
   text-align:center;
 }
-.panel input{
-  width:100%;
-  margin-top:12px;
-}
+.panel input{width:100%;margin-top:12px}
 .close{margin-top:10px;cursor:pointer;color:cyan}
 </style>
 </head>
@@ -177,7 +174,6 @@ h2{text-align:center;margin-bottom:15px;font-size:28px}
 
 <!-- ===== TOP UI ===== -->
 <div class="top-ui" id="topUI">
-
   <div class="top-bar">
     <div class="profile">
       <img id="profileImg">
@@ -190,10 +186,7 @@ h2{text-align:center;margin-bottom:15px;font-size:28px}
     <div class="admin-btn" onclick="adminAction()">ADMIN</div>
   </div>
 
-  <div class="welcome">
-    Welcome to Prasath Movie Show
-  </div>
-
+  <div class="welcome">Welcome to Prasath's Movie Show</div>
 </div>
 
 <!-- Movies -->
@@ -217,13 +210,13 @@ const ADMIN_USER="prasath@";
 const ADMIN_PASS="0729904733";
 let isAdmin=false;
 
-const moviesData = [
-  { name: "Hotel Transylvania (2012)", link: "https://drive.google.com/file/d/1kb1mm3rsctloklpf5GkgovsdEPdpWShk/view?usp=drivesdk" },
-  { name: "7(Seven)", link: "https://drive.google.com/file/d/1SILyLCag-1KnptVSsK4y6d1QI-YgbQK7/view?usp=drivesdk" },
-  { name: "Alien Outbreak (2020 Tamil)", link: "https://drive.google.com/file/d/1ld8-NGqw4yiU7bMKEkljT_vINJfVTH_A/view?usp=drivesdk" },
-  { name: "Sabdham (2025)", link: "https://drive.google.com/file/d/110mXeF0qwqpe307FxzhpZHW1eL_UYpNO/view?usp=drivesdk" },
-  { name: "Anaconda-1 (Tamil)", link: "https://drive.google.com/file/d/133w7XEEb05R68jiEc-ocPycFpDresMiT/view?usp=drivesdk" },
-  { name: "Anaconda-2 (Tamil)", link: "https://drive.google.com/file/d/1mIVspZ-JHys1nemhUnG1eipLbjzJXKYV/view?usp=drivesdk" }
+const moviesData=[
+ {name:"Hotel Transylvania (2012)",link:"https://drive.google.com/file/d/1kb1mm3rsctloklpf5GkgovsdEPdpWShk/view?usp=drivesdk"},
+ {name:"7(Seven)",link:"https://drive.google.com/file/d/1SILyLCag-1KnptVSsK4y6d1QI-YgbQK7/view?usp=drivesdk"},
+ {name:"Alien Outbreak (2020 Tamil)",link:"https://drive.google.com/file/d/1ld8-NGqw4yiU7bMKEkljT_vINJfVTH_A/view?usp=drivesdk"},
+ {name:"Sabdham (2025)",link:"https://drive.google.com/file/d/110mXeF0qwqpe307FxzhpZHW1eL_UYpNO/view?usp=drivesdk"},
+ {name:"Anaconda-1 (Tamil)",link:"https://drive.google.com/file/d/133w7XEEb05R68jiEc-ocPycFpDresMiT/view?usp=drivesdk"},
+ {name:"Anaconda-2 (Tamil)",link:"https://drive.google.com/file/d/1mIVspZ-JHys1nemhUnG1eipLbjzJXKYV/view?usp=drivesdk"}
 ];
 
 function render(list){
@@ -233,20 +226,17 @@ function render(list){
     div.className="movie";
     div.innerHTML=`
       <div class="movie-name">${m.name}</div>
-      <div class="play-btn" onclick="window.open('${m.link}','_blank')">
-        ▶ WATCH NOW
-      </div>
+      <div class="play-btn" onclick="window.open('${m.link}','_blank')">▶ WATCH NOW</div>
     `;
     movies.appendChild(div);
   });
 }
 
 function filterMovies(){
-  let q = search.value.toLowerCase();
-  render(moviesData.filter(m => m.name.toLowerCase().includes(q)));
+  let q=search.value.toLowerCase();
+  render(moviesData.filter(m=>m.name.toLowerCase().includes(q)));
 }
 
-/* ADMIN */
 function adminAction(){
   if(isAdmin){
     adminPanel.style.display="flex";
@@ -275,25 +265,19 @@ function logout(){
   closeAdmin();
   alert("Logged out");
 }
-function closeAdmin(){adminPanel.style.display="none";}
+function closeAdmin(){adminPanel.style.display="none"}
 
-/* Load profile for all */
 let saved=localStorage.getItem("profileImg");
-profileImg.src = saved || "https://via.placeholder.com/100";
+profileImg.src=saved || "https://via.placeholder.com/150";
 
-/* Hide on scroll */
 let lastScroll=0;
 window.addEventListener("scroll",()=>{
   let cur=window.scrollY;
-  if(cur>lastScroll && cur>80){
-    topUI.classList.add("hide");
-  }else{
-    topUI.classList.remove("hide");
-  }
+  if(cur>lastScroll && cur>80) topUI.classList.add("hide");
+  else topUI.classList.remove("hide");
   lastScroll=cur;
 });
 
-/* Init */
 render(moviesData);
 </script>
 
