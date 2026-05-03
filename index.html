@@ -11,9 +11,31 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+
+/* ==== BACKGROUND IMAGE (FACE VISIBLE) ==== */
 body{
+  min-height:100vh;
+  color:#fff;
+  position:relative;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)),
+    url("https://wallpaperbat.com/img/130483753-lord-shiva-hd-wallpaper.jpg")
+    50% 30% / cover no-repeat;
+  z-index:-2;
+}
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
   background:radial-gradient(circle at top,#071821,#000);
-  min-height:100vh;color:#fff;
+  opacity:.55;
+  z-index:-1;
 }
 
 /* SCREEN */
@@ -37,12 +59,12 @@ body{
 /* WELCOME */
 .welcome{
   font-size:34px;font-weight:900;margin-bottom:16px;
+  text-align:center;
   background:linear-gradient(120deg,#00ffff,#ff00ff,#00ffff);
   background-size:300% 300%;
   -webkit-background-clip:text;
   background-clip:text;color:transparent;
   animation:liquidText 6s ease-in-out infinite;
-  text-align:center;
 }
 @keyframes liquidText{
   0%{background-position:0% 50%}
@@ -51,77 +73,52 @@ body{
 }
 
 /* SEARCH */
-.search-bar{
-  width:90%;max-width:380px;margin-bottom:20px;
-}
+.search-bar{width:90%;max-width:380px;margin-bottom:20px}
 .search-bar input{
   width:100%;padding:14px;border-radius:999px;
   border:none;outline:none;text-align:center;
-  background:rgba(255,255,255,.18);
-  backdrop-filter:blur(20px);
+  background:rgba(255,255,255,.20);
+  backdrop-filter:blur(22px);
   color:#fff;box-shadow:0 0 30px cyan;
 }
 
 /* GRID – 2×2 */
 .grid{
   width:90%;max-width:750px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-  margin-bottom:20px;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:18px;margin-bottom:20px;
 }
 
-/* LIQUID BUTTON – ULTRA INTERACTIVE */
+/* LIQUID BUTTON – SLOW PUSH */
 .liquid-btn{
-  height:140px;
-  border-radius:26px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
-  font-weight:900;
-  cursor:pointer;
-  position:relative;
-  overflow:hidden;
-  transition: transform .30s ease, box-shadow .30s ease;
+  height:140px;border-radius:26px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;font-weight:900;
+  cursor:pointer;position:relative;overflow:hidden;
+  transition:transform .35s ease, box-shadow .35s ease;
 }
-
 .liquid-btn::before{
-  content:"";
-  position:absolute;
-  width:220%;
-  height:220%;
+  content:"";position:absolute;width:220%;height:220%;
   background:
     radial-gradient(circle at 25% 25%,#00ffff,transparent 45%),
     radial-gradient(circle at 75% 75%,#ff00ff,transparent 45%),
     linear-gradient(135deg,#00ffff,#ff00ff);
-  filter:blur(26px);
-  animation:flow 10s linear infinite;
+  filter:blur(26px);animation:flow 10s linear infinite;
   z-index:-2;
-  transition:all .2s ease;
 }
-
 .liquid-btn::after{
-  content:"";
-  position:absolute;
-  inset:0;
+  content:"";position:absolute;inset:0;
   background:rgba(255,255,255,.14);
-  backdrop-filter:blur(25px);
-  z-index:-1;
+  backdrop-filter:blur(28px);z-index:-1;
 }
-
-/* default liquid */
 @keyframes flow{
   0%{transform:translate(-30%,-30%) rotate(0)}
   100%{transform:translate(-30%,-30%) rotate(360deg)}
 }
-
-/* 🎯 PRESS (touch / click) */
 .liquid-btn:active{
   transform:scale(.93) translateY(2px);
-  box-shadow:0 0 90px cyan inset;
+  box-shadow:0 0 100px cyan inset;
 }
-
 .liquid-btn:active::before{
   animation-duration:3s;
   filter:blur(18px);
@@ -130,14 +127,12 @@ body{
 /* CATEGORY HEADER */
 .category-header{
   width:90%;max-width:700px;
-  display:flex;align-items:center;
-  gap:14px;margin-bottom:10px;
+  display:flex;align-items:center;gap:14px;margin-bottom:10px;
 }
 .back-btn{
   padding:8px 14px;border-radius:999px;
   background:linear-gradient(135deg,#00ffff,#ff00ff);
-  font-weight:bold;cursor:pointer;
-  box-shadow:0 0 20px cyan;
+  font-weight:bold;cursor:pointer;box-shadow:0 0 20px cyan;
 }
 .category-title{
   font-size:24px;font-weight:900;
@@ -147,14 +142,11 @@ body{
 }
 
 /* MOVIES */
-.movies{
-  width:90%;max-width:700px;
-}
+.movies{width:90%;max-width:700px}
 .movie{
-  margin-top:14px;padding:16px;
-  border-radius:20px;
+  margin-top:14px;padding:16px;border-radius:20px;
   background:rgba(255,255,255,.12);
-  backdrop-filter:blur(16px);
+  backdrop-filter:blur(18px);
 }
 .play{
   margin-top:10px;padding:12px;border-radius:999px;
@@ -172,9 +164,7 @@ body{
 
 <body>
 
-<!-- HOME -->
 <div id="home" class="screen">
-
   <div class="logo">
     <img src="https://i.pinimg.com/736x/e1/21/52/e12152362b80e2e1d7beb8d9314fdee3.jpg">
   </div>
@@ -195,7 +185,6 @@ body{
   <div id="homeMovies" class="movies"></div>
 </div>
 
-<!-- CATEGORY -->
 <div id="category" class="screen hidden">
   <div class="category-header">
     <div class="back-btn" onclick="goBack()">← Back</div>
@@ -210,29 +199,24 @@ const moviesData=[
  {name:"7 (Seven)",cat:"Bollywood",link:"https://drive.google.com/file/d/1SILyLCag-1KnptVSsK4y6d1QI-YgbQK7/view"},
  {name:"Alien Outbreak (2020 Tamil)",cat:"Hollywood",link:"https://drive.google.com/file/d/1ld8-NGqw4yiU7bMKEkljT_vINJfVTH_A/view"},
  {name:"Rogue (2020 Tamil)",cat:"Hollywood",link:"https://drive.google.com/file/d/1m29Gut1BY3ERHYg2Q1zgqvQcJKTMPcqK/view"},
- {name:"Sabdham (2025)",cat:"Bollywood",link:"https://drive.google.com/file/d/110mXeF0qwqpe307FxzhpZHW1eL_UYpNO/view"},
+ {name:"Sabdham (2025)",cat:"Series",link:"https://drive.google.com/file/d/110mXeF0qwqpe307FxzhpZHW1eL_UYpNO/view"},
  {name:"Anaconda-1",cat:"Hollywood",link:"https://drive.google.com/file/d/133w7XEEb05R68jiEc-ocPycFpDresMiT/view"},
  {name:"Anaconda-2",cat:"Hollywood",link:"https://drive.google.com/file/d/1mIVspZ-JHys1nemhUnG1eipLbjzJXKYV/view"},
  {name:"Anaconda-3",cat:"Hollywood",link:"https://drive.google.com/file/d/1vd2zVmRdfii6bPiuRKDH-wwdYrkLEbF-/view"}
 ];
 
-/* SEARCH */
 search.addEventListener("input",()=>{
   const q=search.value.toLowerCase();
   homeMovies.innerHTML="";
-  if(!q){
-    categoryGrid.style.display="grid";
-    return;
-  }
+  if(!q){ categoryGrid.style.display="grid"; return; }
   categoryGrid.style.display="none";
-  moviesData.filter(m=>m.name.toLowerCase().includes(q))
-    .forEach(m=>{
-      homeMovies.innerHTML+=`
-        <div class="movie">
-          <div>${m.name}</div>
-          <div class="play" onclick="window.open('${m.link}','_blank')">▶ WATCH</div>
-        </div>`;
-    });
+  moviesData.filter(m=>m.name.toLowerCase().includes(q)).forEach(m=>{
+    homeMovies.innerHTML+=`
+      <div class="movie">
+        <div>${m.name}</div>
+        <div class="play" onclick="window.open('${m.link}','_blank')">▶ WATCH</div>
+      </div>`;
+  });
 });
 
 function openCategory(cat){
