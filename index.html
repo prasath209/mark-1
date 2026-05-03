@@ -1,220 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google Site Verification -->
-  <meta name="google-site-verification"
-        content="bTZBs_6EcoeX_jyFRGzBp_wBy1FdrGPf1v5Xqktv_FQ">
+<meta name="google-site-verification"
+      content="bTZBs_6EcoeX_jyFRGzBp_wBy1FdrGPf1v5Xqktv_FQ">
 
-  <title>Flimx Prasath Movies</title>
+<title>Flimx Prasath Movies</title>
 
-  <style>
-  *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+body{
+  background:radial-gradient(circle at top,#071821,#000);
+  min-height:100vh;color:#fff;
+}
 
-  body{
-    background:radial-gradient(circle at top,#071821,#000);
-    min-height:100vh;
-    color:#fff;
-  }
+/* SCREEN */
+.screen{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:40px 0;
+}
+.hidden{display:none}
 
-  /* SCREENS */
-  .screen{
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    padding:40px 0;
-  }
-  .hidden{display:none}
+/* LOGO */
+.logo{
+  width:90px;height:90px;border-radius:50%;
+  overflow:hidden;box-shadow:0 0 35px cyan;
+  margin-bottom:16px;
+}
+.logo img{width:100%;height:100%;object-fit:cover}
 
-  /* LOGO */
-  .logo{
-    width:90px;
-    height:90px;
-    border-radius:50%;
-    overflow:hidden;
-    box-shadow:0 0 35px cyan;
-    margin-bottom:20px;
-  }
-  .logo img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-  }
+/* WELCOME */
+.welcome{
+  font-size:34px;font-weight:900;margin-bottom:16px;
+  background:linear-gradient(120deg,#00ffff,#ff00ff,#00ffff);
+  background-size:300% 300%;
+  -webkit-background-clip:text;
+  background-clip:text;color:transparent;
+  animation:liquidText 6s ease-in-out infinite;
+  text-align:center;
+}
+@keyframes liquidText{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
 
-  /* WELCOME */
-  .welcome{
-    font-size:34px;
-    font-weight:900;
-    margin-bottom:16px;
-    text-align:center;
-    background:linear-gradient(120deg,#00ffff,#ff00ff,#00ffff);
-    background-size:300% 300%;
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-    animation:liquidText 6s ease-in-out infinite;
-  }
-  @keyframes liquidText{
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-  }
+/* SEARCH */
+.search-bar{
+  width:90%;max-width:380px;margin-bottom:20px;
+}
+.search-bar input{
+  width:100%;padding:14px;border-radius:999px;
+  border:none;outline:none;text-align:center;
+  background:rgba(255,255,255,.18);
+  backdrop-filter:blur(20px);
+  color:#fff;box-shadow:0 0 30px cyan;
+}
 
-  /* SEARCH */
-  .search-bar{
-    width:90%;
-    max-width:380px;
-    margin-bottom:20px;
-  }
-  .search-bar input{
-    width:100%;
-    padding:14px;
-    border-radius:999px;
-    border:none;
-    outline:none;
-    text-align:center;
-    background:rgba(255,255,255,.18);
-    backdrop-filter:blur(20px);
-    color:#fff;
-    box-shadow:0 0 30px cyan;
-  }
+/* GRID – 2×2 */
+.grid{
+  width:90%;max-width:750px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  margin-bottom:20px;
+}
 
-  /* GRID */
-  .grid{
-    width:90%;
-    max-width:700px;
-    display:grid;
-    grid-template-columns:1fr;
-    gap:18px;
-    margin-bottom:20px;
-  }
+/* LIQUID BUTTON */
+.liquid-btn{
+  height:140px;border-radius:26px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;font-weight:900;
+  cursor:pointer;position:relative;overflow:hidden;
+}
+.liquid-btn::before{
+  content:"";position:absolute;width:220%;height:220%;
+  background:
+    radial-gradient(circle at 25% 25%,#00ffff,transparent 45%),
+    radial-gradient(circle at 75% 75%,#ff00ff,transparent 45%),
+    linear-gradient(135deg,#00ffff,#ff00ff);
+  filter:blur(26px);animation:flow 10s linear infinite;
+  z-index:-2;
+}
+.liquid-btn::after{
+  content:"";position:absolute;inset:0;
+  background:rgba(255,255,255,.14);
+  backdrop-filter:blur(25px);z-index:-1;
+}
+@keyframes flow{
+  0%{transform:translate(-30%,-30%) rotate(0)}
+  100%{transform:translate(-30%,-30%) rotate(360deg)}
+}
 
-  /* LIQUID BUTTON */
-  .liquid-btn{
-    height:140px;
-    border-radius:26px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:20px;
-    font-weight:900;
-    cursor:pointer;
-    position:relative;
-    overflow:hidden;
-  }
-  .liquid-btn::before{
-    content:"";
-    position:absolute;
-    width:220%;
-    height:220%;
-    background:
-      radial-gradient(circle at 25% 25%,#00ffff,transparent 45%),
-      radial-gradient(circle at 75% 75%,#ff00ff,transparent 45%),
-      linear-gradient(135deg,#00ffff,#ff00ff);
-    filter:blur(26px);
-    animation:flow 10s linear infinite;
-    z-index:-2;
-  }
-  .liquid-btn::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:rgba(255,255,255,.14);
-    backdrop-filter:blur(25px);
-    z-index:-1;
-  }
-  @keyframes flow{
-    0%{transform:translate(-30%,-30%) rotate(0)}
-    100%{transform:translate(-30%,-30%) rotate(360deg)}
-  }
+/* CATEGORY HEADER */
+.category-header{
+  width:90%;max-width:700px;
+  display:flex;align-items:center;
+  gap:14px;margin-bottom:10px;
+}
+.back-btn{
+  padding:8px 14px;border-radius:999px;
+  background:linear-gradient(135deg,#00ffff,#ff00ff);
+  font-weight:bold;cursor:pointer;
+  box-shadow:0 0 20px cyan;
+}
+.category-title{
+  font-size:24px;font-weight:900;
+  background:linear-gradient(135deg,#00ffff,#ff00ff);
+  -webkit-background-clip:text;
+  background-clip:text;color:transparent;
+}
 
-  /* CATEGORY HEADER */
-  .category-header{
-    width:90%;
-    max-width:700px;
-    display:flex;
-    align-items:center;
-    gap:14px;
-    margin-bottom:10px;
-  }
-  .back-btn{
-    padding:8px 14px;
-    border-radius:999px;
-    background:linear-gradient(135deg,#00ffff,#ff00ff);
-    font-weight:bold;
-    cursor:pointer;
-    box-shadow:0 0 20px cyan;
-  }
-  .category-title{
-    font-size:24px;
-    font-weight:900;
-    background:linear-gradient(135deg,#00ffff,#ff00ff);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-  }
+/* MOVIES */
+.movies{
+  width:90%;max-width:700px;
+}
+.movie{
+  margin-top:14px;padding:16px;
+  border-radius:20px;
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(16px);
+}
+.play{
+  margin-top:10px;padding:12px;border-radius:999px;
+  background:linear-gradient(135deg,#ff00ff,#00ffff);
+  text-align:center;cursor:pointer;
+}
 
-  /* MOVIES */
-  .movies{
-    width:90%;
-    max-width:700px;
-  }
-  .movie{
-    margin-top:14px;
-    padding:16px;
-    border-radius:20px;
-    background:rgba(255,255,255,.12);
-    backdrop-filter:blur(16px);
-  }
-  .play{
-    margin-top:10px;
-    padding:12px;
-    border-radius:999px;
-    background:linear-gradient(135deg,#ff00ff,#00ffff);
-    text-align:center;
-    cursor:pointer;
-  }
-  </style>
+/* MOBILE */
+@media(max-width:650px){
+  .grid{grid-template-columns:1fr}
+  .liquid-btn{height:120px}
+}
+</style>
 </head>
 
 <body>
 
-<!-- HOME SCREEN -->
+<!-- HOME -->
 <div id="home" class="screen">
 
   <div class="logo">
-    <img src="https://i.pinimg.com/736x/e1/21/52/e12152362b80e2e1d7beb8d9314fdee3.jpg" alt="Logo">
+    <img src="https://i.pinimg.com/736x/e1/21/52/e12152362b80e2e1d7beb8d9314fdee3.jpg">
   </div>
 
-  <div class="welcome">
-    Welcome To Prasath Movies World!
-  </div>
+  <div class="welcome">Welcome To Prasath Movies World!</div>
 
   <div class="search-bar">
     <input id="search" placeholder="Search movies">
   </div>
 
-  <div class="grid">
-    <div class="liquid-btn" onclick="openCategory('Hollywood')">Hollywood Collection</div>
-    <div class="liquid-btn" onclick="openCategory('Bollywood')">Bollywood Collection</div>
+  <!-- CATEGORY GRID -->
+  <div id="categoryGrid" class="grid">
+    <div class="liquid-btn" onclick="openCategory('Hollywood')">Hollywood</div>
+    <div class="liquid-btn" onclick="openCategory('Bollywood')">Bollywood</div>
     <div class="liquid-btn" onclick="openCategory('Series')">Series & Drama</div>
     <div class="liquid-btn" onclick="openCategory('Cartoon')">Cartoon</div>
   </div>
 
+  <!-- SEARCH RESULTS -->
   <div id="homeMovies" class="movies"></div>
 </div>
 
-<!-- CATEGORY SCREEN -->
+<!-- CATEGORY PAGE -->
 <div id="category" class="screen hidden">
-
   <div class="category-header">
     <div class="back-btn" onclick="goBack()">← Back</div>
     <div id="catTitle" class="category-title"></div>
   </div>
-
   <div id="moviesBox" class="movies"></div>
 </div>
 
@@ -224,18 +182,23 @@ const moviesData=[
  {name:"7 (Seven)",cat:"Bollywood",link:"https://drive.google.com/file/d/1SILyLCag-1KnptVSsK4y6d1QI-YgbQK7/view"},
  {name:"Alien Outbreak (2020 Tamil)",cat:"Hollywood",link:"https://drive.google.com/file/d/1ld8-NGqw4yiU7bMKEkljT_vINJfVTH_A/view"},
  {name:"Rogue (2020 Tamil)",cat:"Hollywood",link:"https://drive.google.com/file/d/1m29Gut1BY3ERHYg2Q1zgqvQcJKTMPcqK/view"},
- {name:"Sabdham (2025)",cat:"Bollywood",link:"https://drive.google.com/file/d/110mXeF0qwqpe307FxzhpZHW1eL_UYpNO/view"},
+ {name:"Sabdham (2025)",cat:"Series",link:"https://drive.google.com/file/d/110mXeF0qwqpe307FxzhpZHW1eL_UYpNO/view"},
  {name:"Anaconda-1",cat:"Hollywood",link:"https://drive.google.com/file/d/133w7XEEb05R68jiEc-ocPycFpDresMiT/view"},
  {name:"Anaconda-2",cat:"Hollywood",link:"https://drive.google.com/file/d/1mIVspZ-JHys1nemhUnG1eipLbjzJXKYV/view"},
  {name:"Anaconda-3",cat:"Hollywood",link:"https://drive.google.com/file/d/1vd2zVmRdfii6bPiuRKDH-wwdYrkLEbF-/view"}
 ];
 
-/* HOME SEARCH */
+/* SEARCH – hide categories */
 search.addEventListener("input",()=>{
-  const q = search.value.toLowerCase();
+  const q=search.value.toLowerCase();
   homeMovies.innerHTML="";
-  if(!q) return;
-  moviesData.filter(m=>m.name.toLowerCase().includes(q)).forEach(renderHomeMovie);
+  if(!q){
+    categoryGrid.style.display="grid";
+    return;
+  }
+  categoryGrid.style.display="none";
+  moviesData.filter(m=>m.name.toLowerCase().includes(q))
+    .forEach(renderHomeMovie);
 });
 
 function renderHomeMovie(m){
@@ -246,13 +209,14 @@ function renderHomeMovie(m){
     </div>`;
 }
 
-/* CATEGORY ENTER */
+/* CATEGORY */
 function openCategory(cat){
   home.classList.add("hidden");
   category.classList.remove("hidden");
-  catTitle.textContent = cat + " Collection";
+  catTitle.textContent=cat+" Collection";
   moviesBox.innerHTML="";
-  moviesData.filter(m=>m.cat===cat).forEach(renderCategoryMovie);
+  moviesData.filter(m=>m.cat===cat)
+    .forEach(renderCategoryMovie);
 }
 
 function renderCategoryMovie(m){
@@ -263,11 +227,12 @@ function renderCategoryMovie(m){
     </div>`;
 }
 
-/* BACK */
 function goBack(){
   category.classList.add("hidden");
   home.classList.remove("hidden");
-  moviesBox.innerHTML="";
+  search.value="";
+  categoryGrid.style.display="grid";
+  homeMovies.innerHTML="";
 }
 </script>
 
