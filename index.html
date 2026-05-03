@@ -26,17 +26,15 @@ body{
   font-size:34px;
   font-weight:900;
   letter-spacing:1px;
-
   background:rgba(255,255,255,0.12);
   backdrop-filter:blur(14px);
   border-radius:30px;
-
   box-shadow:
     0 0 25px rgba(0,255,255,.35),
     inset 0 0 15px rgba(255,255,255,.2);
-
   color:#ffffff;
   text-shadow:0 0 12px rgba(0,255,255,.6);
+  z-index:998;
 }
 
 /* ===== WATCHING EYE ===== */
@@ -45,6 +43,7 @@ body{
   top:10px;
   left:50%;
   transform:translateX(-50%);
+  z-index:999;
 }
 .eye{
   width:120px;height:60px;
@@ -59,6 +58,34 @@ body{
   position:absolute;
   top:18px;left:47px;
   transition:.15s;
+}
+
+/* ===== SEARCH BOX ===== */
+.search-box{
+  position:fixed;
+  top:15px;
+  right:15px;
+  z-index:999;
+}
+.search-box input{
+  width:160px;
+  padding:12px 18px;
+  border:none;
+  outline:none;
+  border-radius:999px;
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(15px);
+  color:#fff;
+  font-size:16px;
+  box-shadow:
+    0 0 20px rgba(0,255,255,.4),
+    inset 0 0 10px rgba(255,255,255,.25);
+  transition:.35s;
+}
+.search-box input::placeholder{color:#ddd}
+.search-box input:focus{
+  width:230px;
+  box-shadow:0 0 30px cyan;
 }
 
 /* ===== CARD ===== */
@@ -95,6 +122,7 @@ h2{text-align:center;margin-bottom:15px;font-size:28px}
   font-size:20px;
   font-weight:bold;
   cursor:pointer;
+  transition:.3s;
 }
 .play-btn:hover{
   transform:scale(1.12);
@@ -105,11 +133,16 @@ h2{text-align:center;margin-bottom:15px;font-size:28px}
 
 <body>
 
-<!-- Eye -->
+<!-- Watching Eye -->
 <div class="eye-box">
   <div class="eye">
     <div class="pupil" id="pupil"></div>
   </div>
+</div>
+
+<!-- Search -->
+<div class="search-box">
+  <input type="text" id="search" placeholder="Search Movie..." oninput="filterMovies()">
 </div>
 
 <!-- Welcome Title -->
@@ -124,7 +157,7 @@ h2{text-align:center;margin-bottom:15px;font-size:28px}
 </div>
 
 <script>
-/* HARD-CODED MOVIE */
+/* HARD-CODED MOVIES */
 const moviesData = [
   {
     name: "Hotel Transylvania (2012)",
@@ -140,9 +173,10 @@ const moviesData = [
   }
 ];
 
-function loadMovies(){
+/* Render Movies */
+function render(list){
   movies.innerHTML="";
-  moviesData.forEach(m=>{
+  list.forEach(m=>{
     let div=document.createElement("div");
     div.className="movie";
     div.innerHTML=`
@@ -155,6 +189,15 @@ function loadMovies(){
   });
 }
 
+/* SEARCH – ALL LETTERS, CASE INSENSITIVE */
+function filterMovies(){
+  let q = search.value.toLowerCase();
+  let filtered = moviesData.filter(m =>
+    m.name.toLowerCase().includes(q)
+  );
+  render(filtered);
+}
+
 /* Eye follow mouse */
 document.addEventListener("mousemove",e=>{
   let x=(e.clientX/window.innerWidth-.5)*30;
@@ -162,7 +205,8 @@ document.addEventListener("mousemove",e=>{
   pupil.style.transform=`translate(${x}px,${y}px)`;
 });
 
-loadMovies();
+/* Load initial movies */
+render(moviesData);
 </script>
 
 </body>
