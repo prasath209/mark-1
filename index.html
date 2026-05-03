@@ -20,8 +20,7 @@ body{
 /* ===== TOP UI (HIDE ON SCROLL) ===== */
 .top-ui{
   position:fixed;
-  top:0;
-  width:100%;
+  top:0; width:100%;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -30,63 +29,43 @@ body{
   transition:transform .45s ease, opacity .45s ease;
   z-index:1000;
 }
-.top-ui.hide{
-  transform:translateY(-160%);
-  opacity:0;
-}
+.top-ui.hide{ transform:translateY(-160%); opacity:0; }
 
 /* ===== TOP BAR ===== */
-.top-bar{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
+.top-bar{ display:flex; align-items:center; gap:12px; }
 
-/* ===== PROFILE (BIGGER) ===== */
+/* ===== PROFILE LOGO ===== */
 .profile{
-  width:70px;          /* was 50px */
-  height:70px;         /* was 50px */
+  width:70px; height:70px;
   border-radius:50%;
   background:rgba(255,255,255,.18);
   backdrop-filter:blur(16px);
-  box-shadow:0 0 30px cyan,inset 0 0 15px #fff4;
+  box-shadow:0 0 30px cyan, inset 0 0 15px #fff4;
   overflow:hidden;
 }
-.profile img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
+.profile img{ width:100%; height:100%; object-fit:cover; }
 
-/* ===== SEARCH BOX (SMALLER WIDTH) ===== */
+/* ===== SEARCH BOX ===== */
 .search-box input{
-  width:180px;         /* was 220px */
+  width:180px;
   padding:14px 22px;
-  border:none;
-  outline:none;
+  border:none; outline:none;
   border-radius:999px;
   background:rgba(255,255,255,.15);
   backdrop-filter:blur(20px);
-  color:#fff;
-  font-size:17px;
+  color:#fff; font-size:17px;
   text-align:center;
-  box-shadow:
-    0 0 25px rgba(0,255,255,.45),
-    inset 0 0 12px rgba(255,255,255,.25);
+  box-shadow:0 0 25px rgba(0,255,255,.45), inset 0 0 12px rgba(255,255,255,.25);
   transition:.4s;
 }
-.search-box input:focus{
-  width:240px;         /* was 280px */
-  box-shadow:0 0 40px cyan;
-}
+.search-box input:focus{ width:240px; box-shadow:0 0 40px cyan; }
 
-/* Admin button */
+/* ===== ADMIN BUTTON ===== */
 .admin-btn{
   padding:14px 18px;
   border-radius:999px;
   background:linear-gradient(135deg,#ff00ff,#00ffff);
-  font-weight:bold;
-  cursor:pointer;
+  font-weight:bold; cursor:pointer;
   box-shadow:0 0 20px magenta;
 }
 
@@ -94,79 +73,39 @@ body{
 .welcome{
   text-align:center;
   padding:18px 28px;
-  font-size:34px;
-  font-weight:900;
-  letter-spacing:1px;
-  background:rgba(255,255,255,0.12);
+  font-size:34px; font-weight:900;
+  background:rgba(255,255,255,.12);
   backdrop-filter:blur(16px);
   border-radius:30px;
-  box-shadow:
-    0 0 30px rgba(0,255,255,.4),
-    inset 0 0 15px rgba(255,255,255,.2);
-  color:#ffffff;
-  text-shadow:0 0 14px rgba(0,255,255,.6);
+  box-shadow:0 0 30px rgba(0,255,255,.4), inset 0 0 15px rgba(255,255,255,.2);
+  color:#fff; text-shadow:0 0 14px rgba(0,255,255,.6);
 }
 
 /* ===== CARD ===== */
 .card{
-  width:96%;
-  max-width:520px;
+  width:96%; max-width:520px;
   background:rgba(255,255,255,.1);
   backdrop-filter:blur(20px);
   border-radius:30px;
-  padding:30px;
-  margin-bottom:25px;
+  padding:30px; margin-bottom:25px;
   box-shadow:0 0 60px rgba(0,255,255,.25);
 }
-
 h2{text-align:center;margin-bottom:15px;font-size:28px}
 
 /* ===== MOVIE CARD ===== */
 .movie{
   background:rgba(0,0,0,.5);
-  padding:20px;
-  border-radius:28px;
-  margin-top:16px;
+  padding:20px; border-radius:28px; margin-top:16px;
 }
-.movie-name{
-  font-size:22px;
-  font-weight:bold;
-}
+.movie-name{ font-size:22px; font-weight:bold; }
 .play-btn{
-  margin-top:14px;
-  padding:20px;
+  margin-top:14px; padding:20px;
   border-radius:999px;
   background:linear-gradient(135deg,#ff00ff,#00ffff);
-  text-align:center;
-  font-size:20px;
-  font-weight:bold;
-  cursor:pointer;
-  transition:.35s;
+  text-align:center; font-size:20px; font-weight:bold;
+  cursor:pointer; transition:.35s;
 }
-.play-btn:hover{
-  transform:scale(1.12);
-  box-shadow:0 0 40px magenta;
-}
-
-/* ===== ADMIN PANEL ===== */
-.admin-panel{
-  position:fixed;
-  inset:0;
-  background:#000c;
-  display:none;
-  justify-content:center;
-  align-items:center;
-}
-.panel{
-  background:#111;
-  padding:25px;
-  width:90%;
-  max-width:420px;
-  border-radius:25px;
-  text-align:center;
-}
-.panel input{width:100%;margin-top:12px}
-.close{margin-top:10px;cursor:pointer;color:cyan}
+.play-btn:hover{ transform:scale(1.12); box-shadow:0 0 40px magenta; }
 </style>
 </head>
 
@@ -176,14 +115,14 @@ h2{text-align:center;margin-bottom:15px;font-size:28px}
 <div class="top-ui" id="topUI">
   <div class="top-bar">
     <div class="profile">
-      <img id="profileImg">
+      <img src="https://png.pngtree.com/background/20230526/original/pngtree-an-anime-person-with-white-hair-looking-to-his-side-with-picture-image_2742380.jpg" alt="Logo">
     </div>
 
     <div class="search-box">
       <input id="search" placeholder="Search Movie..." oninput="filterMovies()">
     </div>
 
-    <div class="admin-btn" onclick="adminAction()">ADMIN</div>
+    <div class="admin-btn">ADMIN</div>
   </div>
 
   <div class="welcome">Welcome to Prasath's Movie Show</div>
@@ -195,21 +134,7 @@ h2{text-align:center;margin-bottom:15px;font-size:28px}
   <div id="movies"></div>
 </div>
 
-<!-- Admin Panel -->
-<div class="admin-panel" id="adminPanel">
-  <div class="panel">
-    <h3>Admin Profile</h3>
-    <input type="file" accept="image/*" onchange="updateProfile(this)">
-    <div class="admin-btn" style="margin-top:15px" onclick="logout()">LOGOUT</div>
-    <div class="close" onclick="closeAdmin()">✖ Close</div>
-  </div>
-</div>
-
 <script>
-const ADMIN_USER="prasath@";
-const ADMIN_PASS="0729904733";
-let isAdmin=false;
-
 const moviesData=[
  {name:"Hotel Transylvania (2012)",link:"https://drive.google.com/file/d/1kb1mm3rsctloklpf5GkgovsdEPdpWShk/view?usp=drivesdk"},
  {name:"7(Seven)",link:"https://drive.google.com/file/d/1SILyLCag-1KnptVSsK4y6d1QI-YgbQK7/view?usp=drivesdk"},
@@ -222,57 +147,22 @@ const moviesData=[
 function render(list){
   movies.innerHTML="";
   list.forEach(m=>{
-    let div=document.createElement("div");
-    div.className="movie";
-    div.innerHTML=`
-      <div class="movie-name">${m.name}</div>
-      <div class="play-btn" onclick="window.open('${m.link}','_blank')">▶ WATCH NOW</div>
-    `;
-    movies.appendChild(div);
+    movies.innerHTML+=`
+      <div class="movie">
+        <div class="movie-name">${m.name}</div>
+        <div class="play-btn" onclick="window.open('${m.link}','_blank')">▶ WATCH NOW</div>
+      </div>`;
   });
 }
-
 function filterMovies(){
-  let q=search.value.toLowerCase();
+  const q=search.value.toLowerCase();
   render(moviesData.filter(m=>m.name.toLowerCase().includes(q)));
 }
 
-function adminAction(){
-  if(isAdmin){
-    adminPanel.style.display="flex";
-  }else{
-    let u=prompt("Username");
-    let p=prompt("Password");
-    if(u===ADMIN_USER && p===ADMIN_PASS){
-      isAdmin=true;
-      adminPanel.style.display="flex";
-    }else alert("Wrong login");
-  }
-}
-
-function updateProfile(input){
-  let file=input.files[0];
-  let reader=new FileReader();
-  reader.onload=()=>{
-    localStorage.setItem("profileImg",reader.result);
-    profileImg.src=reader.result;
-  };
-  reader.readAsDataURL(file);
-}
-
-function logout(){
-  isAdmin=false;
-  closeAdmin();
-  alert("Logged out");
-}
-function closeAdmin(){adminPanel.style.display="none"}
-
-let saved=localStorage.getItem("profileImg");
-profileImg.src=saved || "https://via.placeholder.com/150";
-
+/* Hide top UI on scroll */
 let lastScroll=0;
 window.addEventListener("scroll",()=>{
-  let cur=window.scrollY;
+  const cur=window.scrollY;
   if(cur>lastScroll && cur>80) topUI.classList.add("hide");
   else topUI.classList.remove("hide");
   lastScroll=cur;
