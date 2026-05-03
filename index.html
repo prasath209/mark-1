@@ -14,37 +14,28 @@ body{
   display:flex;
   flex-direction:column;
   align-items:center;
-  padding-top:160px;
+  padding-top:170px;
 }
 
-/* ===== WELCOME TITLE ===== */
-.welcome{
+/* ===== TOP UI (HIDE ON SCROLL) ===== */
+.top-ui{
   position:fixed;
-  top:80px;
-  text-align:center;
-  padding:18px 28px;
-  font-size:34px;
-  font-weight:900;
-  letter-spacing:1px;
-  background:rgba(255,255,255,0.12);
-  backdrop-filter:blur(16px);
-  border-radius:30px;
-  box-shadow:
-    0 0 30px rgba(0,255,255,.4),
-    inset 0 0 15px rgba(255,255,255,.2);
-  color:#ffffff;
-  text-shadow:0 0 14px rgba(0,255,255,.6);
-  z-index:998;
+  top:0;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  padding-top:15px;
+  transition:transform .45s ease, opacity .45s ease;
+  z-index:1000;
+}
+.top-ui.hide{
+  transform:translateY(-140%);
+  opacity:0;
 }
 
-/* ===== SEARCH BOX (TOP CENTER) ===== */
-.search-box{
-  position:fixed;
-  top:15px;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:999;
-}
+/* ===== SEARCH BOX ===== */
 .search-box input{
   width:220px;
   padding:15px 24px;
@@ -65,6 +56,23 @@ body{
 .search-box input:focus{
   width:280px;
   box-shadow:0 0 40px cyan;
+}
+
+/* ===== WELCOME TITLE ===== */
+.welcome{
+  text-align:center;
+  padding:18px 28px;
+  font-size:34px;
+  font-weight:900;
+  letter-spacing:1px;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(16px);
+  border-radius:30px;
+  box-shadow:
+    0 0 30px rgba(0,255,255,.4),
+    inset 0 0 15px rgba(255,255,255,.2);
+  color:#ffffff;
+  text-shadow:0 0 14px rgba(0,255,255,.6);
 }
 
 /* ===== CARD ===== */
@@ -112,14 +120,15 @@ h2{text-align:center;margin-bottom:15px;font-size:28px}
 
 <body>
 
-<!-- Search Box -->
-<div class="search-box">
-  <input type="text" id="search" placeholder="Search Movie..." oninput="filterMovies()">
-</div>
+<!-- ===== TOP AREA ===== -->
+<div class="top-ui" id="topUI">
+  <div class="search-box">
+    <input type="text" id="search" placeholder="Search Movie..." oninput="filterMovies()">
+  </div>
 
-<!-- Welcome Title -->
-<div class="welcome">
-  Welcome to Prasath Movie Show
+  <div class="welcome">
+    Welcome to Prasath Movie Show
+  </div>
 </div>
 
 <!-- Movies -->
@@ -129,35 +138,15 @@ h2{text-align:center;margin-bottom:15px;font-size:28px}
 </div>
 
 <script>
-/* HARD-CODED MOVIES */
 const moviesData = [
-  {
-    name: "Hotel Transylvania (2012)",
-    link: "https://drive.google.com/file/d/1kb1mm3rsctloklpf5GkgovsdEPdpWShk/view?usp=drivesdk"
-  },
-  {
-    name: "7(Seven)",
-    link: "https://drive.google.com/file/d/1SILyLCag-1KnptVSsK4y6d1QI-YgbQK7/view?usp=drivesdk"
-  },
-  {
-    name: "Alien Outbreak (2020 Tamil)",
-    link: "https://drive.google.com/file/d/1ld8-NGqw4yiU7bMKEkljT_vINJfVTH_A/view?usp=drivesdk"
-  },
-  {
-    name: "Sabdham(2025)",
-    link: "https://drive.google.com/file/d/110mXeF0qwqpe307FxzhpZHW1eL_UYpNO/view?usp=drivesdk"
-  },
-  {
-    name: "Anaconda-1(tamil)",
-    link: "https://drive.google.com/file/d/133w7XEEb05R68jiEc-ocPycFpDresMiT/view?usp=drivesdk"
-  },
-  {
-    name: "Anaconda-2(tamil)",
-    link: "https://drive.google.com/file/d/1mIVspZ-JHys1nemhUnG1eipLbjzJXKYV/view?usp=drivesdk"
-  }
+  { name: "Hotel Transylvania (2012)", link: "https://drive.google.com/file/d/1kb1mm3rsctloklpf5GkgovsdEPdpWShk/view?usp=drivesdk" },
+  { name: "7(Seven)", link: "https://drive.google.com/file/d/1SILyLCag-1KnptVSsK4y6d1QI-YgbQK7/view?usp=drivesdk" },
+  { name: "Alien Outbreak (2020 Tamil)", link: "https://drive.google.com/file/d/1ld8-NGqw4yiU7bMKEkljT_vINJfVTH_A/view?usp=drivesdk" },
+  { name: "Sabdham (2025)", link: "https://drive.google.com/file/d/110mXeF0qwqpe307FxzhpZHW1eL_UYpNO/view?usp=drivesdk" },
+  { name: "Anaconda-1 (Tamil)", link: "https://drive.google.com/file/d/133w7XEEb05R68jiEc-ocPycFpDresMiT/view?usp=drivesdk" },
+  { name: "Anaconda-2 (Tamil)", link: "https://drive.google.com/file/d/1mIVspZ-JHys1nemhUnG1eipLbjzJXKYV/view?usp=drivesdk" }
 ];
 
-/* Render Movies */
 function render(list){
   movies.innerHTML="";
   list.forEach(m=>{
@@ -173,7 +162,6 @@ function render(list){
   });
 }
 
-/* SEARCH – ALL LETTERS */
 function filterMovies(){
   let q = search.value.toLowerCase();
   let filtered = moviesData.filter(m =>
@@ -181,6 +169,18 @@ function filterMovies(){
   );
   render(filtered);
 }
+
+/* ===== HIDE TOP UI WHEN SCROLL ===== */
+let lastScroll = 0;
+window.addEventListener("scroll", ()=>{
+  let current = window.scrollY;
+  if(current > lastScroll && current > 80){
+    topUI.classList.add("hide");   // scroll down
+  }else{
+    topUI.classList.remove("hide"); // scroll up
+  }
+  lastScroll = current;
+});
 
 /* Initial Load */
 render(moviesData);
