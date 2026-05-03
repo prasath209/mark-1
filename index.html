@@ -83,7 +83,7 @@ body{
   cursor:pointer;
   position:relative;
   overflow:hidden;
-  transition:transform .15s ease, box-shadow .15s ease;
+  transition: transform .30s ease, box-shadow .30s ease;
 }
 
 .liquid-btn::before{
@@ -118,12 +118,12 @@ body{
 
 /* 🎯 PRESS (touch / click) */
 .liquid-btn:active{
-  transform:scale(.90) translateY(4px);
+  transform:scale(.93) translateY(2px);
   box-shadow:0 0 90px cyan inset;
 }
 
 .liquid-btn:active::before{
-  animation-duration:1.8s;
+  animation-duration:3s;
   filter:blur(18px);
 }
 
