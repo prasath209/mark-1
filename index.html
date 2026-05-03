@@ -14,7 +14,7 @@ body{
   display:flex;
   flex-direction:column;
   align-items:center;
-  padding-top:170px;
+  padding-top:190px;
 }
 
 /* ===== TOP UI (HIDE ON SCROLL) ===== */
@@ -31,8 +31,31 @@ body{
   z-index:1000;
 }
 .top-ui.hide{
-  transform:translateY(-140%);
+  transform:translateY(-160%);
   opacity:0;
+}
+
+/* ===== TOP BAR ===== */
+.top-bar{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+/* Profile (visible to all users) */
+.profile{
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background:rgba(255,255,255,.18);
+  backdrop-filter:blur(16px);
+  box-shadow:0 0 25px cyan,inset 0 0 12px #fff4;
+  overflow:hidden;
+}
+.profile img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
 /* ===== SEARCH BOX ===== */
@@ -52,10 +75,19 @@ body{
     inset 0 0 12px rgba(255,255,255,.25);
   transition:.4s;
 }
-.search-box input::placeholder{color:#ddd}
 .search-box input:focus{
   width:280px;
   box-shadow:0 0 40px cyan;
+}
+
+/* Admin button */
+.admin-btn{
+  padding:14px 18px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#ff00ff,#00ffff);
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 0 20px magenta;
 }
 
 /* ===== WELCOME TITLE ===== */
@@ -115,20 +147,53 @@ h2{text-align:center;margin-bottom:15px;font-size:28px}
   transform:scale(1.12);
   box-shadow:0 0 40px magenta;
 }
+
+/* ===== ADMIN PANEL ===== */
+.admin-panel{
+  position:fixed;
+  inset:0;
+  background:#000c;
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+.panel{
+  background:#111;
+  padding:25px;
+  width:90%;
+  max-width:420px;
+  border-radius:25px;
+  text-align:center;
+}
+.panel input{
+  width:100%;
+  margin-top:12px;
+}
+.close{margin-top:10px;cursor:pointer;color:cyan}
 </style>
 </head>
 
 <body>
 
-<!-- ===== TOP AREA ===== -->
+<!-- ===== TOP UI ===== -->
 <div class="top-ui" id="topUI">
-  <div class="search-box">
-    <input type="text" id="search" placeholder="Search Movie..." oninput="filterMovies()">
+
+  <div class="top-bar">
+    <div class="profile">
+      <img id="profileImg">
+    </div>
+
+    <div class="search-box">
+      <input id="search" placeholder="Search Movie..." oninput="filterMovies()">
+    </div>
+
+    <div class="admin-btn" onclick="adminAction()">ADMIN</div>
   </div>
 
   <div class="welcome">
     Welcome to Prasath Movie Show
   </div>
+
 </div>
 
 <!-- Movies -->
@@ -137,7 +202,21 @@ h2{text-align:center;margin-bottom:15px;font-size:28px}
   <div id="movies"></div>
 </div>
 
+<!-- Admin Panel -->
+<div class="admin-panel" id="adminPanel">
+  <div class="panel">
+    <h3>Admin Profile</h3>
+    <input type="file" accept="image/*" onchange="updateProfile(this)">
+    <div class="admin-btn" style="margin-top:15px" onclick="logout()">LOGOUT</div>
+    <div class="close" onclick="closeAdmin()">✖ Close</div>
+  </div>
+</div>
+
 <script>
+const ADMIN_USER="prasath@";
+const ADMIN_PASS="0729904733";
+let isAdmin=false;
+
 const moviesData = [
   { name: "Hotel Transylvania (2012)", link: "https://drive.google.com/file/d/1kb1mm3rsctloklpf5GkgovsdEPdpWShk/view?usp=drivesdk" },
   { name: "7(Seven)", link: "https://drive.google.com/file/d/1SILyLCag-1KnptVSsK4y6d1QI-YgbQK7/view?usp=drivesdk" },
@@ -164,25 +243,57 @@ function render(list){
 
 function filterMovies(){
   let q = search.value.toLowerCase();
-  let filtered = moviesData.filter(m =>
-    m.name.toLowerCase().includes(q)
-  );
-  render(filtered);
+  render(moviesData.filter(m => m.name.toLowerCase().includes(q)));
 }
 
-/* ===== HIDE TOP UI WHEN SCROLL ===== */
-let lastScroll = 0;
-window.addEventListener("scroll", ()=>{
-  let current = window.scrollY;
-  if(current > lastScroll && current > 80){
-    topUI.classList.add("hide");   // scroll down
+/* ADMIN */
+function adminAction(){
+  if(isAdmin){
+    adminPanel.style.display="flex";
   }else{
-    topUI.classList.remove("hide"); // scroll up
+    let u=prompt("Username");
+    let p=prompt("Password");
+    if(u===ADMIN_USER && p===ADMIN_PASS){
+      isAdmin=true;
+      adminPanel.style.display="flex";
+    }else alert("Wrong login");
   }
-  lastScroll = current;
+}
+
+function updateProfile(input){
+  let file=input.files[0];
+  let reader=new FileReader();
+  reader.onload=()=>{
+    localStorage.setItem("profileImg",reader.result);
+    profileImg.src=reader.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function logout(){
+  isAdmin=false;
+  closeAdmin();
+  alert("Logged out");
+}
+function closeAdmin(){adminPanel.style.display="none";}
+
+/* Load profile for all */
+let saved=localStorage.getItem("profileImg");
+profileImg.src = saved || "https://via.placeholder.com/100";
+
+/* Hide on scroll */
+let lastScroll=0;
+window.addEventListener("scroll",()=>{
+  let cur=window.scrollY;
+  if(cur>lastScroll && cur>80){
+    topUI.classList.add("hide");
+  }else{
+    topUI.classList.remove("hide");
+  }
+  lastScroll=cur;
 });
 
-/* Initial Load */
+/* Init */
 render(moviesData);
 </script>
 
