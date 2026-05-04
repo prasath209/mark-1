@@ -28,116 +28,165 @@ html,body{height:100%;background:#000;color:#fff;overflow-x:hidden}
 .overlay{position:fixed;inset:0;z-index:-2;background:rgba(0,0,0,.25)}
 
 /* SCREENS */
-.screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 0}
+.screen{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:40px 0
+}
 .hidden{display:none}
 
 /* LOGO */
-.logo{width:110px;height:110px;border-radius:50%;position:relative;overflow:hidden;margin-bottom:18px}
-.logo img{width:100%;height:100%;border-radius:50%;z-index:2;position:relative}
+.logo{
+  width:110px;height:110px;
+  border-radius:50%;
+  position:relative;
+  overflow:hidden;
+  margin-bottom:18px
+}
+.logo img{
+  width:100%;height:100%;
+  border-radius:50%;
+  z-index:2;position:relative
+}
 .logo::before{
-content:"";position:absolute;inset:-30%;
-background:radial-gradient(circle,rgba(0,255,255,.8),transparent 60%),
-radial-gradient(circle,rgba(255,0,255,.8),transparent 60%);
-filter:blur(25px);animation:spin 6s linear infinite;z-index:1}
+  content:"";
+  position:absolute;inset:-30%;
+  background:
+    radial-gradient(circle,rgba(0,255,255,.8),transparent 60%),
+    radial-gradient(circle,rgba(255,0,255,.8),transparent 60%);
+  filter:blur(25px);
+  animation:spin 6s linear infinite;
+  z-index:1
+}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* GLASS */
+/* GLASS CARD */
 .glass{
-background:rgba(255,255,255,.12);
-backdrop-filter:blur(24px);
-border-radius:28px;
-box-shadow:0 0 40px rgba(0,255,255,.25),0 0 80px rgba(255,0,255,.15);
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(24px);
+  border-radius:28px;
+  box-shadow:
+    0 0 40px rgba(0,255,255,.25),
+    0 0 80px rgba(255,0,255,.15)
 }
 
 /* WELCOME */
 .welcome{
-font-size:32px;font-weight:900;text-align:center;
-background:linear-gradient(120deg,#00ffff,#ff00ff,#00ffff);
-background-size:300% 300%;
--webkit-background-clip:text;background-clip:text;color:transparent;
-animation:textFlow 6s ease infinite}
+  font-size:32px;
+  font-weight:900;
+  text-align:center;
+  background:linear-gradient(120deg,#00ffff,#ff00ff,#00ffff);
+  background-size:300% 300%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:textFlow 6s ease infinite
+}
 @keyframes textFlow{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}}
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
 
-/* 🔍 SEARCH + RECENT (WIDTH INCREASED ✅) */
+/* 🔍 SEARCH + RECENT (✅ SAME WIDTH AS WELCOME) */
 .search-row{
-width:90%;
-max-width:560px;   /* ✅ increased */
-display:flex;
-gap:12px;
-margin:20px 0}
-.search-row input,.pill{
-padding:14px 16px;
-border:none;outline:none;border-radius:999px;
-background:rgba(255,255,255,.14);
-backdrop-filter:blur(18px);
-color:#fff;
-box-shadow:
-  0 0 25px rgba(0,255,255,.35),
-  0 0 45px rgba(255,0,255,.25);
-text-align:center;
-cursor:pointer
+  width:90%;
+  max-width:720px;        /* ✅ same as welcome */
+  display:flex;
+  gap:14px;
+  margin:20px 0
+}
+.search-row input{
+  flex:1;
+  padding:14px 18px;
+  border:none;
+  outline:none;
+  border-radius:999px;
+  background:rgba(255,255,255,.14);
+  backdrop-filter:blur(18px);
+  color:#fff;
+  box-shadow:
+    0 0 25px rgba(0,255,255,.35),
+    0 0 45px rgba(255,0,255,.25);
+  text-align:center
 }
 .pill{
-max-width:140px;   /* ✅ increased */
-font-weight:bold
+  width:160px;            /* ✅ fixed Recent */
+  padding:14px 0;
+  border-radius:999px;
+  background:rgba(255,255,255,.14);
+  backdrop-filter:blur(18px);
+  color:#fff;
+  box-shadow:
+    0 0 25px rgba(0,255,255,.35),
+    0 0 45px rgba(255,0,255,.25);
+  text-align:center;
+  font-weight:bold;
+  cursor:pointer
 }
 
-/* GRID */
+/* CATEGORY GRID */
 .grid{
-width:90%;
-max-width:750px;
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:18px;
-margin-bottom:20px
+  width:90%;
+  max-width:750px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  margin-bottom:20px
 }
 
 /* CATEGORY BUTTON */
 .liquid-btn{
-height:130px;border-radius:26px;
-display:flex;align-items:center;justify-content:center;
-font-size:20px;font-weight:900;
-cursor:pointer;
-position:relative;overflow:hidden
+  height:130px;
+  border-radius:26px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  font-weight:900;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden
 }
 .liquid-btn::before{
-content:"";position:absolute;width:260%;height:260%;
-background:
-radial-gradient(circle at 30% 30%,#00ffff,transparent 60%),
-radial-gradient(circle at 70% 70%,#ff00ff,transparent 60%);
-filter:blur(30px);
-animation:spin 7s linear infinite
+  content:"";
+  position:absolute;
+  width:260%;height:260%;
+  background:
+    radial-gradient(circle at 30% 30%,#00ffff,transparent 60%),
+    radial-gradient(circle at 70% 70%,#ff00ff,transparent 60%);
+  filter:blur(30px);
+  animation:spin 7s linear infinite
 }
 .liquid-btn span{position:relative;z-index:1}
 
 /* MOVIES */
 .movies{width:90%;max-width:700px}
 .movie{
-margin-top:14px;
-padding:16px;
-border-radius:20px;
-background:rgba(255,255,255,.14);
-backdrop-filter:blur(18px)
+  margin-top:14px;
+  padding:16px;
+  border-radius:20px;
+  background:rgba(255,255,255,.14);
+  backdrop-filter:blur(18px)
 }
 .play{
-margin-top:10px;
-padding:12px;
-border-radius:999px;
-background:linear-gradient(135deg,#ff00ff,#00ffff);
-text-align:center;
-cursor:pointer
+  margin-top:10px;
+  padding:12px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#ff00ff,#00ffff);
+  text-align:center;
+  cursor:pointer
 }
 
 /* BACK / EXIT */
 .back-btn{
-margin-bottom:16px;
-padding:10px 22px;
-border-radius:999px;
-background:linear-gradient(135deg,#00ffff,#ff00ff);
-cursor:pointer
+  margin-bottom:16px;
+  padding:10px 22px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#00ffff,#ff00ff);
+  cursor:pointer
 }
 </style>
 </head>
@@ -148,7 +197,6 @@ cursor:pointer
 
 <!-- HOME -->
 <div id="home" class="screen">
-
   <div class="logo">
     <img src="https://wallpapercave.com/wp/wp7152064.jpg">
   </div>
@@ -157,13 +205,11 @@ cursor:pointer
     <div class="welcome">Welcome To Prasath Movies World!</div>
   </div>
 
-  <!-- SEARCH + RECENT -->
   <div class="search-row">
     <input id="search" placeholder="Search movies">
     <div class="pill" onclick="openRecent()">Recent</div>
   </div>
 
-  <!-- CATEGORIES -->
   <div id="categoryGrid" class="grid">
     <div class="liquid-btn" onclick="openCategory('Hollywood')"><span>Hollywood</span></div>
     <div class="liquid-btn" onclick="openCategory('Bollywood')"><span>Bollywood</span></div>
@@ -210,18 +256,16 @@ function render(list, box){
   });
 }
 
-/* ✅ SEARCH: hide categories while typing */
+/* SEARCH */
 search.addEventListener("input",()=>{
-  const q = search.value.toLowerCase();
+  const q=search.value.toLowerCase();
   homeMovies.innerHTML="";
-
   if(!q){
-    categoryGrid.style.display="grid";   // ✅ show categories again
+    categoryGrid.style.display="grid";
     return;
   }
-
-  categoryGrid.style.display="none";    // ✅ hide categories
-  render(moviesData.filter(m=>m.name.toLowerCase().includes(q)), homeMovies);
+  categoryGrid.style.display="none";
+  render(moviesData.filter(m=>m.name.toLowerCase().includes(q)),homeMovies);
 });
 
 /* CATEGORY */
@@ -238,7 +282,7 @@ function openCategory(cat){
 function openRecent(){
   home.classList.add("hidden");
   recent.classList.remove("hidden");
-  render([...moviesData].reverse(), recentMovies);
+  render([...moviesData].reverse(),recentMovies);
 }
 
 /* HOME */
@@ -247,7 +291,7 @@ function goHome(){
   recent.classList.add("hidden");
   home.classList.remove("hidden");
   homeMovies.innerHTML="";
-  categoryGrid.style.display="grid";   // ✅ reset
+  categoryGrid.style.display="grid";
   search.value="";
 }
 </script>
