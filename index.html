@@ -227,6 +227,13 @@ html,body{height:100%;background:#000;color:#fff;overflow-x:hidden}
   <div id="moviesBox" class="movies"></div>
 </div>
 
+<!-- ✅ K/C DRAMA SUB -->
+<div id="kcDrama" class="screen hidden">
+  <div class="back-btn" onclick="goHome()">← Home</div>
+  <div id="subBox" class="grid"></div>
+</div>
+
+
 <!-- RECENT -->
 <div id="recent" class="screen hidden">
   <div class="back-btn" onclick="goHome()">✕ Exit</div>
@@ -248,7 +255,7 @@ const moviesData=[
  {name:"Dhurandhar-1",cat:"Bollywood",link:"https://drive.google.com/file/d/1hLYycPuG6ztK8LBRoPcURUfyIGUqWYAa/view?usp=drivesdk"},
  {name:"MAD (2023)",cat:"Bollywood",link:"https://drive.google.com/file/d/1eeWqSHaNri3ZZ8fHU3Vw4Mlo4owt3MyP/view?usp=drivesdk"},
  {name:"Archind",cat:"Hollywood",link:"https://drive.google.com/file/d/1fkOvzSL1RIImq0cuiH75ymjb_VKvkS-X/view?usp=drivesdk"},
- {name:"Even if Love Disappears Tonight(2026) ",cat:"K/C Drama",link:"https://drive.google.com/file/d/1b42limOHw7CMi35PSnXisi6qUi5vLWk3/view?usp=drivesdk"},
+ {name:"Even if Love Disappears Tonight()2026 ",cat:"K/C Drama",sub:"Movies",link:"https://drive.google.com/file/d/1b42limOHw7CMi35PSnXisi6qUi5vLWk3/view?usp=drivesdk"},
  {name:"Fantacy island(2020) ",cat:"Hollywood",link:"https://drive.google.com/file/d/1aarCp7sjEYU_fgs45smQCevcQXJHle97/view?usp=drivesdk"},
  {name:"Lokah chapter-11 Chandra(2025) ",cat:"Bollywood",link:"https://drive.google.com/file/d/1fTD_1xSTtHFAlpLdr37UuH9Nk0XpRWT-/view?usp=drivesdk"},
  {name:"Dhurandhar-2 (2025) ",cat:"Bollywood",link:"https://drive.google.com/file/d/1NbgnPBJIM1QO2kTKBKzoGtn8V63Bu3sy/view?usp=drivesdk"},
@@ -259,6 +266,8 @@ const moviesData=[
  {name:"Sambavam Adhyayam Onnu(2026)",cat:"Bollywood",link:"https://drive.google.com/file/d/1K87svNDq-pXy7JL9pUPLpEpAC9sVe-0z/view?usp=drivesdk"},
  {name:"Dune Part Two(2024)",cat:"Hollywood",link:"https://drive.google.com/file/d/10A7084Hvc1yzRp15C3964xMu9kCeeFPM/view?usp=drivesdk"},
  {name:"Saamy(2003)",cat:"Bollywood",link:"https://drive.google.com/file/d/16STcA1rD5f2l-N4vYKe0nl5BgiGV6KY0/view?usp=drivesdk"}
+
+
  
 
 
@@ -288,12 +297,35 @@ search.addEventListener("input",()=>{
 });
 
 /* CATEGORY */
+
 function openCategory(cat){
-  home.classList.add("hidden");
-  category.classList.remove("hidden");
+
+  if(cat === "K/C Drama"){
+    document.getElementById("home").classList.add("hidden");
+    document.getElementById("kcDrama").classList.remove("hidden");
+
+    let data = moviesData.filter(m => m.cat === "K/C Drama");
+    let subs = [...new Set(data.map(m => m.sub).filter(Boolean))];
+
+    let box = document.getElementById("subBox");
+    box.innerHTML = "";
+
+    subs.forEach(s=>{
+      box.innerHTML += `
+        <div class="liquid-btn" onclick="openSub('${s}')">
+          <span>${s}</span>
+        </div>`;
+    });
+
+    return;
+  }
+
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById("category").classList.remove("hidden");
+
   render(
-    moviesData.filter(m=>m.cat===cat).sort((a,b)=>a.name.localeCompare(b.name)),
-    moviesBox
+    moviesData.filter(m=>m.cat===cat),
+    document.getElementById("moviesBox")
   );
 }
 
@@ -304,14 +336,28 @@ function openRecent(){
   render([...moviesData].reverse(),recentMovies);
 }
 
+function openSub(sub){
+
+  document.getElementById("kcDrama").classList.add("hidden");
+  document.getElementById("category").classList.remove("hidden");
+
+  render(
+    moviesData.filter(m=>m.cat==="K/C Drama" && m.sub===sub),
+    document.getElementById("moviesBox")
+  );
+}
+
+
 /* HOME */
 function goHome(){
+  
   category.classList.add("hidden");
   recent.classList.add("hidden");
   home.classList.remove("hidden");
   homeMovies.innerHTML="";
   categoryGrid.style.display="grid";
   search.value="";
+  document.getElementById("kcDrama").classList.add("hidden");
 }
 </script>
 </body>
