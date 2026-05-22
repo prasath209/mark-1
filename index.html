@@ -339,8 +339,12 @@ function openCategory(cat){
   home.classList.add("hidden");
   category.classList.remove("hidden");
 
-  render(moviesData.filter(m=>m.cat===cat),moviesBox);
-}
+  render(
+  moviesData
+    .filter(m => m.cat === cat)
+    .sort((a, b) => a.name.localeCompare(b.name)),
+  moviesBox
+)};
 
 /* ✅ SUB */
 function openSub(cat,sub){
@@ -349,9 +353,11 @@ function openSub(cat,sub){
   category.classList.remove("hidden");
 
   render(
-    moviesData.filter(m=>m.cat.toLowerCase()===cat.toLowerCase() && m.sub===sub),
-    moviesBox
-  );
+  moviesData
+    .filter(m => m.cat.toLowerCase() === cat.toLowerCase() && m.sub === sub)
+    .sort((a, b) => a.name.localeCompare(b.name)),
+  moviesBox
+);
 }
 
 /* RECENT */
